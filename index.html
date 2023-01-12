@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <title>クイズ</title>
+    <script>
+      $(function () {
+        //問題文
+        let q = [
+          "通るときに閉まって、通らないときに開いているのは何？",
+          "話すことが好きな道具は何？",
+          "世界の真ん中にいる虫は何？"
+          "終了"
+        ];
+
+        //回答選択肢[配列]
+        let toi = [
+          ["踏切", "洗濯機", "冷蔵庫"],
+          ["スプーン", "シャベル", "しゃもじ"],
+          ["てんとう虫", "カマキリ", "蚊"]
+        ];
+
+        //答え
+        let ans = ["1", "2", "3"];
+        let x = 0;
+        let a = 1;
+
+        //1.最初の問題文＆回答選択肢＆回答値を設定
+        $("#quest").html(q[x]);
+        $("#toi1").html(toi[x][0]);
+        $("#toi2").html(toi[x][1]);
+        $("#toi3").html(toi[x][2]);
+
+        //2.ラジオボタンをクリックしたらイベント発生！(クリックイベント)
+        $("input").on("click", function () {
+          // ラジオボタンの場合にはvalue属性を取得することでどれをクリックしたか分かる
+          console.log($(this).val());
+          if ($(this).val() == ans[x]) {
+            $("#answer1").html("正解");
+          } else {
+            $("#answer1").html("不正解");
+          }
+        });
+
+        // 3.「次へ」ボタンを押されたときの処理
+        $("#next").on("click", function () {
+          // ...　以下に書く
+          x = x + 1;
+          a = a + 1;
+          $("#quest").html(q[x]);
+          $("#toi1").html(toi[x][0]);
+          $("#toi2").html(toi[x][1]);
+          $("#toi3").html(toi[x][2]);
+          $("h1").html("クイズ（" + a + "問目)");
+
+          if (x >2) {
+            alert("終了");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>
+        クイズ（1問目）
+      </h1>
+    </header>
+    <main>
+      <p id="quest">ここに問題が出題されます</p>
+      <p>
+        <input type="radio" name="toi" value="1" />
+        <span id="toi1">選択肢１</span>
+        <input type="radio" name="toi" value="2" />
+        <span id="toi2">選択肢２</span>
+        <input type="radio" name="toi" value="3" />
+        <span id="toi3">選択肢３</span>
+      </p>
+      <p>
+        <button id="next">次の問題</button>
+      </p>
+    </main>
+    <footer id="answer">判定</footer>
+    <footer id="answer1">結果</footer>
+  </body>
+</html>
